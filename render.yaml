@@ -1,0 +1,15 @@
+# Render.com 一键部署配置
+# 用法：在 Render 控制台 New → Blueprint，选择本仓库即可；或手动创建 Web Service 时参考以下命令
+services:
+  - type: web
+    name: cvt-server
+    runtime: node
+    plan: free            # 免费档会休眠，首次访问冷启动约 30-60 秒
+    buildCommand: npm install && npm run build
+    startCommand: node dist/index.js
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
